@@ -126,8 +126,11 @@ class VocabEntry(object):
         ###     defined above.
         ###
         ###     You must prepend each word with the `start_of_word` character and append 
-        ###     with the `end_of_word` character. 
-
+        ###     with the `end_of_word` character.
+        result = []
+        for sen in sents:
+            result.append([[self.char2id['{']] + [self.char2id[char] for char in word] + [self.char2id['}']]for word in sen])
+        return result
 
         ### END YOUR CODE
 
@@ -158,6 +161,10 @@ class VocabEntry(object):
         ### TODO: 
         ###     Connect `words2charindices()` and `pad_sents_char()` which you've defined in 
         ###     previous parts
+        char_em = self.words2charindices(sents)
+        char_em_padded = pad_sents_char(char_em, char_pad_token=self.char2id['<pad>'])
+        sents_var = torch.tensor(char_em_padded, dtype=torch.long, device=device)
+        return torch.transpose(sents_var, 0, 1)
         
 
         ### END YOUR CODE
