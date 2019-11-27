@@ -319,6 +319,7 @@ def beam_search(model: NMT, test_data_src: List[List[str]], beam_size: int, max_
 def main():
     """ Main func.
     """
+    # Create command-line interface
     args = docopt(__doc__)
 
     # Check pytorch version
